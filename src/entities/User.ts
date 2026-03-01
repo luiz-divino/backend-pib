@@ -5,14 +5,12 @@ export class User {
     @PrimaryGeneratedColumn("uuid")
     id!: string
 
-    @Column({nullable: false})
+    @Column({type: "varchar", length:255, nullable: false})
     nome!: string
 
-    @Column({nullable: false, unique: true})
+    @Column({type: "varchar", length:255, nullable: false, unique: true})
     email!: string
 
-    @Column({nullable: false})
+    @Column({type: "varchar", length:255, nullable: false})
     password!: string
-
-
 }
