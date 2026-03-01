@@ -16,6 +16,14 @@ export class UserRepository {
     }
 
     createUser = async (userData: ICreateUserDTO): Promise<User | null> => {
+        const existingUser = await this.manager.findOne( User, {
+            where: {
+                email: userData.email
+            }
+        })
+        if(existingUser){
+            throw new Error("User with this email already exists");
+        }
         const userEntity = this.manager.create(User, userData);
         return await this.manager.save(userEntity)
     }
