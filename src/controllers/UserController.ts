@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
+import bcrypt from "bcrypt";
 
 export class UserController {
   userService: UserService;
@@ -13,10 +14,11 @@ export class UserController {
     const { nome, email, password } = request.body;
     if (!nome || !email || !password) {
       return response.status(404).json({
-        message: "BAD REQUEST",
+        message: "name, email and password are required",
       });
     }
-    const user = await this.userService.createUser(nome, email, password);
+    const hashPassword = await bcrypt.hash(password, 10);
+    const user = await this.userService.createUser(nome, email, hashPassword);
     return response.status(201).json({
       message: "User created successfully",
       user,
