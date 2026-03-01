@@ -5,7 +5,6 @@ import routes from "./routes";
 import { configDotenv } from "dotenv";
 configDotenv();
 
-
 appDataSource.initialize().then(() => {
   const server = express();
   server.use(express.json());
